@@ -1,1 +1,1 @@
-compile 'com.github.wenchaosong:viewpagerTab:1.0'
+compile 'com.github.wenchaosong:viewpagerTab:2.0'
