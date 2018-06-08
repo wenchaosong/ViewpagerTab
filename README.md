@@ -13,7 +13,7 @@
 Gradle
 ```groovy
 dependencies{
-    compile 'com.github.wenchaosong:ViewpagerTab:2.0.2'
+    compile 'com.github.wenchaosong:ViewpagerTab:2.0.3'
 }
 ```
 或者引用本地lib
