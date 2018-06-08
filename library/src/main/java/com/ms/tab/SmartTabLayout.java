@@ -1,19 +1,3 @@
-/**
- * Copyright (C) 2015 ogaclejapan
- * Copyright (C) 2013 The Android Open Source Project
- * <p>
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- * <p>
- * http://www.apache.org/licenses/LICENSE-2.0
- * <p>
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
 package com.ms.tab;
 
 import android.content.Context;
@@ -34,29 +18,8 @@ import android.widget.HorizontalScrollView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-/**
- * To be used with ViewPager to provide a tab indicator component which give constant feedback as
- * to
- * the user's scroll progress.
- * <p>
- * To use the component, simply add it to your view hierarchy. Then in your
- * {@link android.app.Activity} or {@link android.app.Fragment}, {@link
- * android.support.v4.app.Fragment} call
- * {@link #setViewPager(android.support.v4.view.ViewPager)} providing it the ViewPager this layout
- * is being used for.
- * <p>
- * The colors can be customized in two ways. The first and simplest is to provide an array of
- * colors
- * via {@link #setSelectedIndicatorColors(int...)} and {@link #setDividerColors(int...)}. The
- * alternative is via the {@link TabColorizer} interface which provides you complete control over
- * which color is used for any individual position.
- * <p>
- * The views used as tabs can be customized by calling {@link #setCustomTabView(int, int)},
- * providing the layout ID of your custom layout.
- * <p>
- * Forked from Google Samples &gt; SlidingTabsBasic &gt;
- * <a href="https://developer.android.com/samples/SlidingTabsBasic/src/com.example.android.common/view/SlidingTabLayout.html">SlidingTabLayout</a>
- */
+import com.ms.tab.util.Utils;
+
 public class SmartTabLayout extends HorizontalScrollView {
 
     private static final boolean DEFAULT_DISTRIBUTE_EVENLY = false;
@@ -69,7 +32,7 @@ public class SmartTabLayout extends HorizontalScrollView {
     private static final int TAB_VIEW_TEXT_MIN_WIDTH = 0;
     private static final boolean TAB_CLICKABLE = true;
 
-    protected final SmartTabStrip tabStrip;
+    protected final SmartTabIndicator tabStrip;
     private int titleOffset;
     private int tabViewBackgroundResId;
     private boolean tabViewTextAllCaps;
@@ -157,7 +120,7 @@ public class SmartTabLayout extends HorizontalScrollView {
             setCustomTabView(customTabLayoutId, customTabTextViewId);
         }
 
-        this.tabStrip = new SmartTabStrip(context, attrs);
+        this.tabStrip = new SmartTabIndicator(context, attrs);
 
         if (distributeEvenly && tabStrip.isIndicatorAlwaysInCenter()) {
             throw new UnsupportedOperationException(
