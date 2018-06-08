@@ -13,7 +13,7 @@
 Gradle
 ```groovy
 dependencies{
-    compile 'com.github.wenchaosong:ViewpagerTab:2.0.1'
+    compile 'com.github.wenchaosong:ViewpagerTab:2.0.2'
 }
 ```
 或者引用本地lib
@@ -24,7 +24,7 @@ compile project(':library')
 #### Step 2
 
 ```xml
-<com.ogaclejapan.smarttablayout.SmartTabLayout
+<com.ms.tab.SmartTabLayout
             android:id="@+id/tab_layout"
             android:layout_width="match_parent"
             android:layout_height="45dp"

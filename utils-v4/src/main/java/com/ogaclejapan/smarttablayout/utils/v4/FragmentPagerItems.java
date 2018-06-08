@@ -13,14 +13,14 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.ogaclejapan.smarttablayout.utils.v4;
+package com.ms.tab.utils.v4;
 
 import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.StringRes;
 import android.support.v4.app.Fragment;
 
-import com.ogaclejapan.smarttablayout.utils.PagerItems;
+import com.ms.tab.utils.PagerItems;
 
 public class FragmentPagerItems extends PagerItems<FragmentPagerItem> {
 

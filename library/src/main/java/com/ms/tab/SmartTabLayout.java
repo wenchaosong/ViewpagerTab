@@ -14,12 +14,11 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.ogaclejapan.smarttablayout;
+package com.ms.tab;
 
 import android.content.Context;
 import android.content.res.ColorStateList;
 import android.content.res.TypedArray;
-import android.graphics.Typeface;
 import android.os.Build;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewCompat;
@@ -206,7 +205,7 @@ public class SmartTabLayout extends HorizontalScrollView {
     /**
      * Set the behavior of the Indicator scrolling feedback.
      *
-     * @param interpolator {@link com.ogaclejapan.smarttablayout.SmartTabIndicationInterpolator}
+     * @param interpolator {@link com.ms.tab.SmartTabIndicationInterpolator}
      */
     public void setIndicationInterpolator(SmartTabIndicationInterpolator interpolator) {
         tabStrip.setIndicationInterpolator(interpolator);
@@ -537,7 +536,7 @@ public class SmartTabLayout extends HorizontalScrollView {
 
     /**
      * Create the custom tabs in the tab layout. Set with
-     * {@link #setCustomTabView(com.ogaclejapan.smarttablayout.SmartTabLayout.TabProvider)}
+     * {@link #setCustomTabView(com.ms.tab.SmartTabLayout.TabProvider)}
      */
     public interface TabProvider {
 
