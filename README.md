@@ -1,7 +1,7 @@
 # ViewpagerTab
 
 [![](https://jitpack.io/v/wenchaosong/ViewpagerTab.svg)](https://jitpack.io/#wenchaosong/ViewpagerTab)
-[![Hex.pm](https://img.shields.io/github/stars/wenchaosong/ViewpagerTab.svg)](https://github.com/wenchaosong/ViewpagerTab)
+[![](https://img.shields.io/github/stars/wenchaosong/ViewpagerTab.svg)](https://github.com/wenchaosong/ViewpagerTab)
 
 在原项目[SmartTabLayout](https://github.com/ogaclejapan/SmartTabLayout) 基础上
 增加三角形 tab 属性
