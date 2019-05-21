@@ -18,17 +18,16 @@ public class MainActivity extends FragmentActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        SmartTabLayout tabLayout = (SmartTabLayout) findViewById(R.id.tab_layout);
-        ViewPager viewPager = (ViewPager) findViewById(R.id.view_pager);
+        SmartTabLayout tabLayout = findViewById(R.id.tab_layout);
+        ViewPager viewPager = findViewById(R.id.view_pager);
 
         FragmentPagerItems.Creator creator = FragmentPagerItems.with(this);
-        for (int i = 0; i < mTitles.length; i++) {
-            creator.add(mTitles[i], NewsTabFragment.class, new Bundler().putString("type", "1").get());
+        for (String mTitle : mTitles) {
+            creator.add(mTitle, NewsTabFragment.class, new Bundler().putString("type", "1").get());
         }
         FragmentPagerItemAdapter adapter = new FragmentPagerItemAdapter(
                 getSupportFragmentManager(), creator.create());
-        NewsTabAdapter vpAdapter = new NewsTabAdapter(getSupportFragmentManager());
-        viewPager.setAdapter(vpAdapter);
+        viewPager.setAdapter(adapter);
         tabLayout.setViewPager(viewPager);
     }
 }

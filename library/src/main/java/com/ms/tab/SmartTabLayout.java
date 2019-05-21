@@ -3,6 +3,7 @@ package com.ms.tab;
 import android.content.Context;
 import android.content.res.ColorStateList;
 import android.content.res.TypedArray;
+import android.graphics.Typeface;
 import android.os.Build;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewCompat;
@@ -27,6 +28,7 @@ public class SmartTabLayout extends HorizontalScrollView {
     private static final int TITLE_OFFSET_AUTO_CENTER = -1;
     private static final int TAB_VIEW_PADDING_DIPS = 16;
     private static final boolean TAB_VIEW_TEXT_ALL_CAPS = true;
+    private static final boolean TAB_VIEW_TEXT_BOLD = false;
     private static final int TAB_VIEW_TEXT_SIZE_SP = 12;
     private static final int TAB_VIEW_TEXT_COLOR = 0xFC000000;
     private static final int TAB_VIEW_TEXT_MIN_WIDTH = 0;
@@ -36,8 +38,9 @@ public class SmartTabLayout extends HorizontalScrollView {
     private int titleOffset;
     private int tabViewBackgroundResId;
     private boolean tabViewTextAllCaps;
+    private boolean tabViewBold;
     private ColorStateList tabViewTextColors;
-    private float tabViewTextSize;
+    private float tabViewTextSize, tabViewCheckedTextSize;
     private int tabViewTextHorizontalPadding;
     private int tabViewTextMinWidth;
     private ViewPager viewPager;
@@ -68,8 +71,9 @@ public class SmartTabLayout extends HorizontalScrollView {
         int tabBackgroundResId = NO_ID;
         boolean textAllCaps = TAB_VIEW_TEXT_ALL_CAPS;
         ColorStateList textColors;
-        float textSize = TypedValue.applyDimension(
-                TypedValue.COMPLEX_UNIT_SP, TAB_VIEW_TEXT_SIZE_SP, dm);
+        int textSize = TAB_VIEW_TEXT_SIZE_SP;
+        int checkedTextSize;
+        boolean isBold = TAB_VIEW_TEXT_BOLD;
         int textHorizontalPadding = (int) (TAB_VIEW_PADDING_DIPS * density);
         int textMinWidth = (int) (TAB_VIEW_TEXT_MIN_WIDTH * density);
         boolean distributeEvenly = DEFAULT_DISTRIBUTE_EVENLY;
@@ -86,8 +90,12 @@ public class SmartTabLayout extends HorizontalScrollView {
                 R.styleable.stl_SmartTabLayout_stl_defaultTabTextAllCaps, textAllCaps);
         textColors = a.getColorStateList(
                 R.styleable.stl_SmartTabLayout_stl_defaultTabTextColor);
-        textSize = a.getDimension(
+        textSize = a.getDimensionPixelSize(
                 R.styleable.stl_SmartTabLayout_stl_defaultTabTextSize, textSize);
+        checkedTextSize = a.getDimensionPixelSize(
+                R.styleable.stl_SmartTabLayout_stl_checkedTabTextSize, textSize);
+        isBold = a.getBoolean(
+                R.styleable.stl_SmartTabLayout_stl_checkedTextBold, isBold);
         textHorizontalPadding = a.getDimensionPixelSize(
                 R.styleable.stl_SmartTabLayout_stl_defaultTabTextHorizontalPadding, textHorizontalPadding);
         textMinWidth = a.getDimensionPixelSize(
@@ -111,6 +119,8 @@ public class SmartTabLayout extends HorizontalScrollView {
                 ? textColors
                 : ColorStateList.valueOf(TAB_VIEW_TEXT_COLOR);
         this.tabViewTextSize = textSize;
+        this.tabViewCheckedTextSize = checkedTextSize;
+        this.tabViewBold = isBold;
         this.tabViewTextHorizontalPadding = textHorizontalPadding;
         this.tabViewTextMinWidth = textMinWidth;
         this.internalTabClickListener = clickable ? new InternalTabClickListener() : null;
@@ -305,12 +315,21 @@ public class SmartTabLayout extends HorizontalScrollView {
      * Create a default view to be used for tabs. This is called if a custom tab view is not set via
      * {@link #setCustomTabView(int, int)}.
      */
-    protected TextView createDefaultTabView(CharSequence title) {
+    protected TextView createDefaultTabView(CharSequence title, boolean checked) {
         TextView textView = new TextView(getContext());
         textView.setGravity(Gravity.CENTER);
         textView.setText(title);
         textView.setTextColor(tabViewTextColors);
-        textView.setTextSize(TypedValue.COMPLEX_UNIT_PX, tabViewTextSize);
+        if (checked) {
+            textView.setTextSize(TypedValue.COMPLEX_UNIT_PX, tabViewCheckedTextSize);
+        } else {
+            textView.setTextSize(TypedValue.COMPLEX_UNIT_PX, tabViewTextSize);
+        }
+        if (tabViewBold && checked) {
+            textView.setTypeface(Typeface.defaultFromStyle(Typeface.BOLD));
+        } else {
+            textView.setTypeface(Typeface.defaultFromStyle(Typeface.NORMAL));
+        }
         textView.setLayoutParams(new LinearLayout.LayoutParams(
                 LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.MATCH_PARENT));
 
@@ -347,7 +366,7 @@ public class SmartTabLayout extends HorizontalScrollView {
         for (int i = 0; i < adapter.getCount(); i++) {
 
             final View tabView = (tabProvider == null)
-                    ? createDefaultTabView(adapter.getPageTitle(i))
+                    ? createDefaultTabView(adapter.getPageTitle(i), i == viewPager.getCurrentItem())
                     : tabProvider.createTabView(tabStrip, i, adapter);
 
             if (tabView == null) {
@@ -364,11 +383,11 @@ public class SmartTabLayout extends HorizontalScrollView {
                 tabView.setOnClickListener(internalTabClickListener);
             }
 
-            tabStrip.addView(tabView);
-
             if (i == viewPager.getCurrentItem()) {
                 tabView.setSelected(true);
             }
+
+            tabStrip.addView(tabView);
 
         }
     }
@@ -586,6 +605,18 @@ public class SmartTabLayout extends HorizontalScrollView {
 
             for (int i = 0, size = tabStrip.getChildCount(); i < size; i++) {
                 tabStrip.getChildAt(i).setSelected(position == i);
+                if (tabStrip.getChildAt(i) instanceof TextView) {
+                    if (position == i) {
+                        ((TextView) tabStrip.getChildAt(i)).setTextSize(TypedValue.COMPLEX_UNIT_PX, tabViewCheckedTextSize);
+                    } else {
+                        ((TextView) tabStrip.getChildAt(i)).setTextSize(TypedValue.COMPLEX_UNIT_PX, tabViewTextSize);
+                    }
+                    if (tabViewBold && position == i) {
+                        ((TextView) tabStrip.getChildAt(i)).setTypeface(Typeface.defaultFromStyle(Typeface.BOLD));
+                    } else {
+                        ((TextView) tabStrip.getChildAt(i)).setTypeface(Typeface.defaultFromStyle(Typeface.NORMAL));
+                    }
+                }
             }
 
             if (viewPagerPageChangeListener != null) {

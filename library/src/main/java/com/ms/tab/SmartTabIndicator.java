@@ -247,6 +247,7 @@ class SmartTabIndicator extends LinearLayout {
 
     @Override
     protected void onDraw(Canvas canvas) {
+        //自己
         if (!drawDecorationAfterTab) {
             drawDecoration(canvas);
         }
@@ -255,6 +256,7 @@ class SmartTabIndicator extends LinearLayout {
     @Override
     protected void dispatchDraw(Canvas canvas) {
         super.dispatchDraw(canvas);
+        //子View
         if (drawDecorationAfterTab) {
             drawDecoration(canvas);
         }
