@@ -13,7 +13,8 @@
 Gradle
 ```groovy
 dependencies{
-    implementation 'com.github.wenchaosong:ViewpagerTab:2.0.5'
+    implementation 'com.ms:ViewpagerTab:1.0.0'
+    implementation 'com.ms:ViewpagerTab-androidx:1.0.0'
 }
 ```
 或者引用本地lib
