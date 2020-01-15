@@ -39,7 +39,7 @@ public class SmartTabLayout extends HorizontalScrollView {
     private int titleOffset;
     private int tabViewBackgroundResId;
     private boolean tabViewTextAllCaps;
-    private boolean tabViewBold;
+    private boolean allBold, checkedBold;
     private ColorStateList tabViewTextColors;
     private float tabViewTextSize, tabViewCheckedTextSize;
     private int tabViewTextHorizontalPadding;
@@ -74,7 +74,8 @@ public class SmartTabLayout extends HorizontalScrollView {
         ColorStateList textColors;
         int textSize = TAB_VIEW_TEXT_SIZE_SP;
         int checkedTextSize;
-        boolean isBold = TAB_VIEW_TEXT_BOLD;
+        boolean isCheckedBold = TAB_VIEW_TEXT_BOLD;
+        boolean isAllBold = TAB_VIEW_TEXT_BOLD;
         int textHorizontalPadding = (int) (TAB_VIEW_PADDING_DIPS * density);
         int textMinWidth = (int) (TAB_VIEW_TEXT_MIN_WIDTH * density);
         boolean distributeEvenly = DEFAULT_DISTRIBUTE_EVENLY;
@@ -95,8 +96,10 @@ public class SmartTabLayout extends HorizontalScrollView {
                 R.styleable.stl_SmartTabLayout_stl_defaultTabTextSize, textSize);
         checkedTextSize = a.getDimensionPixelSize(
                 R.styleable.stl_SmartTabLayout_stl_checkedTabTextSize, textSize);
-        isBold = a.getBoolean(
-                R.styleable.stl_SmartTabLayout_stl_checkedTextBold, isBold);
+        isCheckedBold = a.getBoolean(
+                R.styleable.stl_SmartTabLayout_stl_checkedTextBold, isCheckedBold);
+        isAllBold = a.getBoolean(
+                R.styleable.stl_SmartTabLayout_stl_allTextBold, isAllBold);
         textHorizontalPadding = a.getDimensionPixelSize(
                 R.styleable.stl_SmartTabLayout_stl_defaultTabTextHorizontalPadding, textHorizontalPadding);
         textMinWidth = a.getDimensionPixelSize(
@@ -121,7 +124,8 @@ public class SmartTabLayout extends HorizontalScrollView {
                 : ColorStateList.valueOf(TAB_VIEW_TEXT_COLOR);
         this.tabViewTextSize = textSize;
         this.tabViewCheckedTextSize = checkedTextSize;
-        this.tabViewBold = isBold;
+        this.checkedBold = isCheckedBold;
+        this.allBold = isAllBold;
         this.tabViewTextHorizontalPadding = textHorizontalPadding;
         this.tabViewTextMinWidth = textMinWidth;
         this.internalTabClickListener = clickable ? new InternalTabClickListener() : null;
@@ -198,7 +202,6 @@ public class SmartTabLayout extends HorizontalScrollView {
 
     /**
      * Set the color used for styling the tab text. This will need to be called prior to calling
-     * {@link #setViewPager(android.support.v4.view.ViewPager)} otherwise it will not get set
      *
      * @param color to use for tab text
      */
@@ -208,7 +211,6 @@ public class SmartTabLayout extends HorizontalScrollView {
 
     /**
      * Sets the colors used for styling the tab text. This will need to be called prior to calling
-     * {@link #setViewPager(android.support.v4.view.ViewPager)} otherwise it will not get set
      *
      * @param colors ColorStateList to use for tab text
      */
@@ -326,10 +328,14 @@ public class SmartTabLayout extends HorizontalScrollView {
         } else {
             textView.setTextSize(TypedValue.COMPLEX_UNIT_PX, tabViewTextSize);
         }
-        if (tabViewBold && checked) {
+        if (allBold) {
             textView.setTypeface(Typeface.defaultFromStyle(Typeface.BOLD));
         } else {
-            textView.setTypeface(Typeface.defaultFromStyle(Typeface.NORMAL));
+            if (checkedBold && checked) {
+                textView.setTypeface(Typeface.defaultFromStyle(Typeface.BOLD));
+            } else {
+                textView.setTypeface(Typeface.defaultFromStyle(Typeface.NORMAL));
+            }
         }
         textView.setLayoutParams(new LinearLayout.LayoutParams(
                 LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.MATCH_PARENT));
@@ -612,10 +618,14 @@ public class SmartTabLayout extends HorizontalScrollView {
                     } else {
                         ((TextView) tabStrip.getChildAt(i)).setTextSize(TypedValue.COMPLEX_UNIT_PX, tabViewTextSize);
                     }
-                    if (tabViewBold && position == i) {
+                    if (allBold) {
                         ((TextView) tabStrip.getChildAt(i)).setTypeface(Typeface.defaultFromStyle(Typeface.BOLD));
                     } else {
-                        ((TextView) tabStrip.getChildAt(i)).setTypeface(Typeface.defaultFromStyle(Typeface.NORMAL));
+                        if (checkedBold && position == i) {
+                            ((TextView) tabStrip.getChildAt(i)).setTypeface(Typeface.defaultFromStyle(Typeface.BOLD));
+                        } else {
+                            ((TextView) tabStrip.getChildAt(i)).setTypeface(Typeface.defaultFromStyle(Typeface.NORMAL));
+                        }
                     }
                 }
             }

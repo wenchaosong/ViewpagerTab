@@ -13,8 +13,8 @@
 Gradle
 ```groovy
 dependencies{
-    implementation 'com.ms:ViewpagerTab:1.0.0'
-    implementation 'com.ms:ViewpagerTab-androidx:1.0.0'
+    implementation 'com.ms:ViewpagerTab:1.0.1'
+    implementation 'com.ms:ViewpagerTab-androidx:1.0.1'
 }
 ```
 或者引用本地lib
@@ -33,10 +33,12 @@ compile project(':library')
         app:stl_checkedTabTextSize="15sp"
         <!-- 选中粗体 -->
         app:stl_checkedTextBold="true"
+        app:stl_allTextBold="true"
         app:stl_clickable="true"
         <!-- 字母大写 -->
         app:stl_defaultTabTextAllCaps="true"
         app:stl_defaultTabTextColor="@color/item_tab"
+        app:stl_customTabTextLayoutId="@layout/tab_layout"
         app:stl_defaultTabTextHorizontalPadding="30dp"
         app:stl_defaultTabTextMinWidth="50dp"
         app:stl_defaultTabTextSize="14sp"
