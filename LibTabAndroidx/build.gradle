@@ -23,8 +23,8 @@ apply plugin: 'com.novoda.bintray-release'
 publish {
     userOrg = 'songwenchao0714'
     groupId = 'com.ms'
-    artifactId = 'ViewpagerTab-androidx'
-    publishVersion = '1.0.1'
+    artifactId = 'viewpagertab-androidx'
+    publishVersion = '1.0.0'
     desc = 'A simple tab lib'
     website = 'https://github.com/wenchaosong/ViewpagerTab'
 }

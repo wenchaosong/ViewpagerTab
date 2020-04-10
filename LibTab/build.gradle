@@ -23,8 +23,8 @@ apply plugin: 'com.novoda.bintray-release'
 publish {
     userOrg = 'songwenchao0714'
     groupId = 'com.ms'
-    artifactId = 'ViewpagerTab'
-    publishVersion = '1.0.1'
+    artifactId = 'viewpagertab'
+    publishVersion = '1.0.0'
     desc = 'A simple tab lib'
     website = 'https://github.com/wenchaosong/ViewpagerTab'
 }

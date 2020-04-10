@@ -11,10 +11,10 @@
 #### Step 1
 
 Gradle
-```groovy
+```
 dependencies{
-    implementation 'com.ms:ViewpagerTab:1.0.1'
-    implementation 'com.ms:ViewpagerTab-androidx:1.0.1'
+    implementation 'com.ms:viewpagertab:1.0.0'
+    implementation 'com.ms:viewpagertab-androidx:1.0.0'
 }
 ```
 或者引用本地lib
