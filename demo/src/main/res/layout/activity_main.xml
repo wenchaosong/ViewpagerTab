@@ -24,7 +24,7 @@
         app:stl_underlineColor="#e1e1e1"
         app:stl_underlineThickness="0.5dp" />
 
-    <android.support.v4.view.ViewPager
+    <androidx.viewpager.widget.ViewPager
         android:id="@+id/view_pager"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />

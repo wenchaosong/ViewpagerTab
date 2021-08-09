@@ -1,10 +1,11 @@
 package com.ms.tab.util;
 
 import android.content.Context;
-import android.support.v4.view.MarginLayoutParamsCompat;
-import android.support.v4.view.ViewCompat;
 import android.view.View;
 import android.view.ViewGroup;
+
+import androidx.core.view.MarginLayoutParamsCompat;
+import androidx.core.view.ViewCompat;
 
 public class Utils {
 

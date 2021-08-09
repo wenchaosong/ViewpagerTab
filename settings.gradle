@@ -1,1 +1,1 @@
-include ':demo', ':LibTab', ':LibTabAndroidx', ':LibViewPagerTab'
+include ':demo', ':LibTab'

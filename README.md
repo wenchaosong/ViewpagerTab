@@ -13,8 +13,7 @@
 Gradle
 ```
 dependencies{
-    implementation 'com.ms:viewpagertab:1.0.0'
-    implementation 'com.ms:viewpagertab-androidx:1.0.0'
+    implementation 'com.ms:viewpagertab-androidx:1.1.0'
 }
 ```
 或者引用本地lib
